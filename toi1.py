@@ -101,12 +101,12 @@ def calc_k_matrix(is_tapered):
         for j in range(func_num):
             if i <= j:
                 kij_f[i, j] = float(integrate(calc_EI(x, is_tapered) * dd_phi_list[i] * dd_phi_list[j], (x, 0, l)))
-                #integral = scipy.integrate.quad(calc_integ_f_kij, 0, l, args=(is_tapered, i, j))
-                #kij_f[i, j] = integral[0]  # o番目が積分値,1番目はerror
+                # integral = scipy.integrate.quad(calc_integ_f_kij, 0, l, args=(is_tapered, i, j))
+                # kij_f[i, j] = integral[0]  # o番目が積分値,1番目はerror
             if i > j:
                 kij_f[i, j] = float(integrate(calc_EI(x, is_tapered) * dd_phi_list[j] * dd_phi_list[i], (x, 0, l)))
-                #integral = scipy.integrate.quad(calc_integ_f_kij, 0, l, args=(is_tapered, j, i))
-                #kij_f[i, j] = integral[0]
+                # integral = scipy.integrate.quad(calc_integ_f_kij, 0, l, args=(is_tapered, j, i))
+                # kij_f[i, j] = integral[0]
     return kij_f
 
 
@@ -116,12 +116,12 @@ def calc_m_matrix(is_tapered):
         for j in range(func_num):
             if i <= j:
                 mij_f[i, j] = float(integrate(calc_mu(x, is_tapered) * phi_list[i] * phi_list[j], (x, 0, l)))
-                #integral = scipy.integrate.quad(calc_integ_f_mij, 0, l, args=(is_tapered, i, j))
-                #mij_f[i, j] = integral[0]
+                # integral = scipy.integrate.quad(calc_integ_f_mij, 0, l, args=(is_tapered, i, j))
+                # mij_f[i, j] = integral[0]
             if i > j:
                 mij_f[i, j] = float(integrate(calc_mu(x, is_tapered) * phi_list[j] * phi_list[i], (x, 0, l)))
-                #integral = scipy.integrate.quad(calc_integ_f_mij, 0, l, args=(is_tapered, j, i))
-                #mij_f[i, j] = integral[0]
+                # integral = scipy.integrate.quad(calc_integ_f_mij, 0, l, args=(is_tapered, j, i))
+                # mij_f[i, j] = integral[0]
     return mij_f
 
 
@@ -188,40 +188,9 @@ def main(c_1i, c_2i, c_3i):
 
 
 if __name__ == "__main__":
-    # uniform  phi6
-    # ci_vector = calc__omega_ci(kij_uni, mij_uni)
-    # ci3_uni = ci_vector[:, 3]
-    # ci2_uni = ci_vector[:, 5]
-    # ci1_uni = ci_vector[:, 4]
-    # main(13.5 * ci1_uni, 400 * ci2_uni, -6800 * ci3_uni)
-
-    # taper phi6
-    # ci_vector = calc_omega_ci(kij_taper, mij_taper)
-    # ci3_taper = ci_vector[:, 3]
-    # ci2_taper = ci_vector[:, 4]
-    # ci1_taper = ci_vector[:, 5]
-    # main(160 * ci1_taper, 1600 * ci2_taper, -6800 * ci3_taper)
-    # main(-6800 * ci3_uni, -6800 * ci3_taper, 160 * ci1_taper)
-
-    # uniform phi7
-    # ci_vector = calc_omega_ci(kij_uni, mij_uni)
-    # ci3_uni = ci_vector[:, 3]
-    # ci2_uni = ci_vector[:, 6]
-    # ci1_uni = ci_vector[:, 4]
-    # main(-40 / 3 * ci1_uni, 650 * ci2_uni, -6000 * ci3_uni)
-
-    # taper phi7
-    # ci_vector = calc_omega_ci(kij_taper, mij_taper)
-    # ci3_taper = ci_vector[:, 6]
-    # ci2_taper = ci_vector[:, 5]
-    # ci1_taper = ci_vector[:, 4]
-    # main(310 * ci1_taper, 3300 * ci2_taper, 18000 * ci3_taper)
-
     # taper 解析解から
-    #ci_vector = calc_omega_ci(kij_taper, mij_taper)
-    # ci3_taper = ci_vector[:, 4]
-    # ci2_taper = ci_vector[:, 3]
-    # ci1_taper = ci_vector[:, 2]
-    # main(0.42 * ci1_taper, 0.3 * 5 / 4 * 0.97 * ci2_taper, 0.3 * 5 / 4 * 1.01 * ci3_taper)  # 縮尺は適当に決めている
-
-    ci_vector = calc_omega_ci(kij_uni, mij_uni)
+    ci_vector = calc_omega_ci(kij_taper, mij_taper)
+    ci3_taper = ci_vector[:, 4]
+    ci2_taper = ci_vector[:, 3]
+    ci1_taper = ci_vector[:, 2]
+    main(0.42 * ci1_taper, 0.3 * 5 / 4 * 0.97 * ci2_taper, 0.3 * 5 / 4 * 1.01 * ci3_taper)  # 縮尺は適当に決めている
